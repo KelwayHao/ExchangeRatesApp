@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/popularFragment">
+
+    <fragment
+        android:id="@+id/popularFragment"
+        android:name="com.kelway.exchangeratesapp.PopularFragment"
+        android:label="PopularFragment" />
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.kelway.exchangeratesapp.FavoritesFragment"
+        android:label="FavoritesFragment" />
+    <fragment
+        android:id="@+id/sortFragment"
+        android:name="com.kelway.exchangeratesapp.SortFragment"
+        android:label="SortFragment" />
+</navigation>

@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/layout/activity_main.xml" value="0.2734375" />
+        <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/layout/activity_main.xml" value="0.42916666666666664" />
+        <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/layout/fragment_favorites.xml" value="0.428125" />
+        <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/layout/fragment_popular.xml" value="0.42916666666666664" />
+        <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/layout/fragment_sort.xml" value="0.428125" />
+        <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/layout/item_currency.xml" value="0.428125" />
       </map>
     </option>
   </component>
