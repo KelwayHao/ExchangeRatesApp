@@ -1,7 +1,9 @@
 package com.kelway.exchangeratesapp.domain.repository
 
 import com.kelway.exchangeratesapp.data.model.CurrencyResponse
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface CurrencyRepository {
-    suspend fun getRepository(): CurrencyResponse
+    fun getRepository(): Flow<CurrencyResponse>
 }

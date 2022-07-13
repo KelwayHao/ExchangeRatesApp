@@ -8,6 +8,7 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import tech.thdev.network.flowcalladapterfactory.FlowCallAdapterFactory
 
 @Module
 class RetrofitModule {
@@ -23,6 +24,7 @@ class RetrofitModule {
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(gsonConverterFactory)
+            .addCallAdapterFactory(FlowCallAdapterFactory())
             .build()
     }
 

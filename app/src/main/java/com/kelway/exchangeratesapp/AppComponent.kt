@@ -7,6 +7,7 @@ import com.kelway.exchangeratesapp.domain.di.DomainModule
 import com.kelway.exchangeratesapp.presentation.MainActivity
 import com.kelway.exchangeratesapp.presentation.fragments.favorites.FavoritesFragment
 import com.kelway.exchangeratesapp.presentation.fragments.popular.PopularFragment
+import com.kelway.exchangeratesapp.presentation.fragments.popular.recycler.PopularViewHolder
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -20,6 +21,7 @@ import javax.inject.Singleton
 interface AppComponent {
     fun inject(target: MainActivity)
     fun inject(target: PopularFragment)
+    fun inject(target: PopularViewHolder)
     fun inject(target: FavoritesFragment)
 
     @Component.Builder
