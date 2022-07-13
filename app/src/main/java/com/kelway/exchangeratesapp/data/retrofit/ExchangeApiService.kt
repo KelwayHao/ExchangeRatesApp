@@ -3,7 +3,6 @@ package com.kelway.exchangeratesapp.data.retrofit
 import com.kelway.exchangeratesapp.data.model.CurrencyResponse
 import com.kelway.exchangeratesapp.utils.Constants
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

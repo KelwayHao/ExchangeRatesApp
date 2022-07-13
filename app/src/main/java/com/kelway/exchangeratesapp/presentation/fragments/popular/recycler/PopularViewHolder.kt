@@ -26,5 +26,9 @@ class PopularViewHolder @Inject constructor(private val binding: ItemCurrencyBin
 
     fun bindItem() {
         ExchangeRatesApplication.appComponent?.inject(this)
+        with(binding) {
+            nameCurrency.text
+            valueCurrency.text
+        }
     }
 }

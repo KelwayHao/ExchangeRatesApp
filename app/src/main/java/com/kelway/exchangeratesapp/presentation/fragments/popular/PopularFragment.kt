@@ -28,7 +28,6 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ExchangeRatesApplication.appComponent?.inject(this)
-        popularViewModel.loadData()
     }
 
     override fun onStart() {
