@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kelway.exchangeratesapp.R
 import com.kelway.exchangeratesapp.databinding.ItemCurrencyBinding
+import com.kelway.exchangeratesapp.domain.model.CurrencyItem
 import com.kelway.exchangeratesapp.presentation.ExchangeRatesApplication
 import javax.inject.Inject
 
@@ -24,11 +25,11 @@ class PopularViewHolder @Inject constructor(private val binding: ItemCurrencyBin
         )
     }
 
-    fun bindItem() {
+    fun bindItem(currencyItem: CurrencyItem) {
         ExchangeRatesApplication.appComponent?.inject(this)
-        with(binding) {
-            nameCurrency.text
-            valueCurrency.text
+        with(currencyItem) {
+            binding.nameCurrency.text = nameCurrency
+            binding.valueCurrency.text = valueCurrency.toString()
         }
     }
 }

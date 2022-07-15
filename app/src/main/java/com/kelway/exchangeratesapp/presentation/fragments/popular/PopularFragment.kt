@@ -9,6 +9,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kelway.exchangeratesapp.R
 import com.kelway.exchangeratesapp.databinding.FragmentPopularBinding
 import com.kelway.exchangeratesapp.presentation.ExchangeRatesApplication
+import com.kelway.exchangeratesapp.presentation.fragments.popular.recycler.PopularAdapter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -24,6 +25,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     @Inject
     lateinit var popularViewModel: PopularViewModel
+    private val adapter by lazy { PopularAdapter() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,12 +38,11 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
     }
 
     private fun initView() {
-        /*popularViewModel.rates.observe(viewLifecycleOwner) {
-            Log.e("List", "${it.rates?.toString()}")
-        }*/
+        binding.recyclerPopular.adapter = adapter
         popularViewModel.countState
             .onEach {
-                Log.e("List", "${it.rates?.toString()}")
+                adapter.submitItem(it.rates)
+                Log.e("list", it.rates.toString())
             }
             .launchIn(lifecycleScope)
     }
