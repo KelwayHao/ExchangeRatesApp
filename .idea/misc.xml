@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.166" />
+        <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/drawable/ic_baseline_arrow_downward_24.xml" value="0.2365" />
+        <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/drawable/ic_baseline_arrow_upward_24.xml" value="0.2365" />
         <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/drawable/ic_baseline_sort_24.xml" value="0.166" />
         <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.166" />
         <entry key="..\:/Android/ExchangeRatesApp/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.166" />
