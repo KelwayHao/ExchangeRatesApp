@@ -15,15 +15,4 @@ class PopularViewModel @Inject constructor(private val interactor: CurrencyInter
     val countState: StateFlow<Currency> = interactor.getDataCurrency()
         .stateIn(viewModelScope, SharingStarted.Lazily, Currency(null, emptyList()))
 
-    /*fun loadData() {
-        viewModelScope.launch {
-            _rates.postValue(interactor.getDataCurrency())
-        }
-    }*/
-
-    /*fun loadData() {
-        viewModelScope.launch {
-            _countState.value = interactor.getDataCurrency().stateIn(viewModelScope).
-        }
-    }*/
 }
