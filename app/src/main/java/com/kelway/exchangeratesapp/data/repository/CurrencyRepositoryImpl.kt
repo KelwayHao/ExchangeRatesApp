@@ -1,7 +1,7 @@
 package com.kelway.exchangeratesapp.data.repository
 
 import com.kelway.exchangeratesapp.data.model.CurrencyResponse
-import com.kelway.exchangeratesapp.data.retrofit.ExchangeApiService
+import com.kelway.exchangeratesapp.data.network.ExchangeApiService
 import com.kelway.exchangeratesapp.domain.repository.CurrencyRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

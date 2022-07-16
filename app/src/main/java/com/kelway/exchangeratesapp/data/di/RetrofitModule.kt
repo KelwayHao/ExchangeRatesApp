@@ -2,7 +2,7 @@ package com.kelway.exchangeratesapp.data.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.kelway.exchangeratesapp.data.retrofit.ExchangeApiService
+import com.kelway.exchangeratesapp.data.network.ExchangeApiService
 import com.kelway.exchangeratesapp.utils.Constants
 import dagger.Module
 import dagger.Provides

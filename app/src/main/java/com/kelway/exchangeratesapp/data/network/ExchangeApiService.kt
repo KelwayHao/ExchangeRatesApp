@@ -1,4 +1,4 @@
-package com.kelway.exchangeratesapp.data.retrofit
+package com.kelway.exchangeratesapp.data.network
 
 import com.kelway.exchangeratesapp.data.model.CurrencyResponse
 import com.kelway.exchangeratesapp.utils.Constants
