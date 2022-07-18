@@ -9,9 +9,11 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kelway.exchangeratesapp.R
 import com.kelway.exchangeratesapp.databinding.FragmentPopularBinding
 import com.kelway.exchangeratesapp.domain.model.CurrencyItem
+import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency
 import com.kelway.exchangeratesapp.presentation.ExchangeRatesApplication
 import com.kelway.exchangeratesapp.presentation.fragments.popular.recycler.PopularAdapter
 import com.kelway.exchangeratesapp.presentation.listener.AddFavoriteClickListener
+import com.kelway.exchangeratesapp.presentation.listener.DeleteFavoriteClickListener
 import com.kelway.exchangeratesapp.utils.toFavoriteCurrency
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -32,9 +34,15 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
         }
     }
 
+    private val deleteFavoriteCurrency = object : DeleteFavoriteClickListener {
+        override fun clickAction(favoriteCurrency: FavoriteCurrency) {
+            popularViewModel.deleteCurrency(favoriteCurrency)
+        }
+    }
+
     @Inject
     lateinit var popularViewModel: PopularViewModel
-    private val adapter by lazy { PopularAdapter(addFavoriteCurrency) }
+    private val adapter by lazy { PopularAdapter(addFavoriteCurrency, deleteFavoriteCurrency) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -7,8 +7,10 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kelway.exchangeratesapp.R
 import com.kelway.exchangeratesapp.databinding.FragmentFavoritesBinding
+import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency
 import com.kelway.exchangeratesapp.presentation.ExchangeRatesApplication
 import com.kelway.exchangeratesapp.presentation.fragments.favorites.recycler.FavoriteAdapter
+import com.kelway.exchangeratesapp.presentation.listener.DeleteFavoriteClickListener
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -22,9 +24,15 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     private val binding by viewBinding<FragmentFavoritesBinding>()
 
+    private val deleteFavoriteCurrency = object : DeleteFavoriteClickListener {
+        override fun clickAction(favoriteCurrency: FavoriteCurrency) {
+            favoriteViewModel.deleteCurrency(favoriteCurrency)
+        }
+    }
+
     @Inject
     lateinit var favoriteViewModel: FavoriteViewModel
-    private val adapter by lazy { FavoriteAdapter() }
+    private val adapter by lazy { FavoriteAdapter(deleteFavoriteCurrency) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

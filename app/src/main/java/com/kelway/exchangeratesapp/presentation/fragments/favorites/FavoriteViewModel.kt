@@ -7,6 +7,7 @@ import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FavoriteViewModel @Inject constructor(private val interactor: FavoriteCurrencyInteractor) :
@@ -14,4 +15,10 @@ class FavoriteViewModel @Inject constructor(private val interactor: FavoriteCurr
 
     val favoriteState: StateFlow<List<FavoriteCurrency>> = interactor.getAllData()
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
+    fun deleteCurrency(favoriteCurrency: FavoriteCurrency) {
+        viewModelScope.launch {
+            interactor.deleteData(favoriteCurrency)
+        }
+    }
 }
