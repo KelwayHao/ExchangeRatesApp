@@ -1,6 +1,5 @@
 package com.kelway.exchangeratesapp.presentation.fragments.popular
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kelway.exchangeratesapp.domain.interactor.CurrencyInteractor
@@ -8,12 +7,8 @@ import com.kelway.exchangeratesapp.domain.interactor.FavoriteCurrencyInteractor
 import com.kelway.exchangeratesapp.domain.model.Currency
 import com.kelway.exchangeratesapp.domain.model.CurrencyItem
 import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency
-import com.kelway.exchangeratesapp.utils.toFavoriteCurrency
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PopularViewModel @Inject constructor(
@@ -22,11 +17,7 @@ class PopularViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    /*init {
-        getFavoriteList()
-    }*/
-
-    val countState: StateFlow<Currency> = testFlow()
+    val countState: StateFlow<Currency> = getCurrency()
         .stateIn(viewModelScope, SharingStarted.Lazily, Currency(null, emptyList()))
 
     fun addFavorite(favoriteCurrency: FavoriteCurrency) {
@@ -35,51 +26,32 @@ class PopularViewModel @Inject constructor(
         }
     }
 
-
-    /*private fun getFavoriteList() {
-        favoriteCurrencyInteractor.getAllData()
-            .map { _listFavorite.postValue(it) }
-            .launchIn(viewModelScope)
-    }*/
-
-    fun deleteCurrency(favoriteCurrency: FavoriteCurrency) {
+    fun deleteFavorite(favoriteCurrency: FavoriteCurrency) {
         viewModelScope.launch {
             favoriteCurrencyInteractor.deleteData(favoriteCurrency)
         }
     }
 
-
-    private fun testFlow(): Flow<Currency> {
+    private fun getCurrency(): Flow<Currency> {
         return favoriteCurrencyInteractor.getAllData()
-            .combine(interactor.getDataCurrency()) { b, a ->
+            .combine(interactor.getDataCurrency()) { favorite, popular ->
                 val listFavorite: MutableList<String> = mutableListOf()
-                Log.e("b", b.toString())
-                b.map {
+                favorite.map {
                     listFavorite.add(it.nameCurrency)
                 }
                 Currency(
-                    a.base,
-                    a.rates.map {
+                    popular.base,
+                    popular.rates.map {
                         if (listFavorite.contains(it.nameCurrency)) {
-                            Log.e("true", it.nameCurrency)
                             CurrencyItem(
                                 it.nameCurrency,
                                 it.valueCurrency,
                                 true
                             )
                         } else {
-
                             it
                         }
                     })
             }
-    }
-
-    fun FavoriteCurrency.toCurrencyItem(): CurrencyItem {
-        return CurrencyItem(
-            nameCurrency,
-            valueCurrency,
-            statusFavorite
-        )
     }
 }

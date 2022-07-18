@@ -1,6 +1,6 @@
 package com.kelway.exchangeratesapp.data.utils
 
-import com.kelway.exchangeratesapp.data.local.database.FavoriteEntity
+import com.kelway.exchangeratesapp.data.local.database.favorite.FavoriteEntity
 import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency
 
 fun FavoriteEntity.toFavoriteCurrency(): FavoriteCurrency {

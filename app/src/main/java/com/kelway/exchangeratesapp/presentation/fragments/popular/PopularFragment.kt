@@ -36,7 +36,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     private val deleteFavoriteCurrency = object : DeleteFavoriteClickListener {
         override fun clickAction(favoriteCurrency: FavoriteCurrency) {
-            popularViewModel.deleteCurrency(favoriteCurrency)
+            popularViewModel.deleteFavorite(favoriteCurrency)
         }
     }
 
@@ -55,7 +55,6 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
         popularViewModel.countState
             .onEach {
                 adapter.submitItem(it.rates)
-                Log.e("list", it.rates.toString())
             }
             .launchIn(lifecycleScope)
     }
