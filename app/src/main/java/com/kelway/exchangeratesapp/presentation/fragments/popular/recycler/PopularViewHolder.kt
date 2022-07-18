@@ -45,7 +45,8 @@ class PopularViewHolder @Inject constructor(
         with(currencyItem) {
             binding.nameCurrency.text = nameCurrency
             binding.valueCurrency.text = valueCurrency.toString()
-            if (false) {
+            if (statusFavorite) {
+                binding.imageFavorite.setImageResource(R.drawable.ic_baseline_star_rate_24)
                 binding.imageFavorite.setOnClickListener {
                     deleteFavoriteCurrency.clickAction(currencyItem.toFavoriteCurrency())
                     binding.imageFavorite.setImageResource(R.drawable.ic_baseline_star_border_24)

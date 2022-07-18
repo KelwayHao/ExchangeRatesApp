@@ -11,6 +11,6 @@ fun FavoriteEntity.toFavoriteCurrency(): FavoriteCurrency {
 
 fun FavoriteCurrency.toFavoriteEntity(): FavoriteEntity {
     return FavoriteEntity(
-        name_currency, value_currency, status_favorite
+        nameCurrency, valueCurrency, statusFavorite
     )
 }

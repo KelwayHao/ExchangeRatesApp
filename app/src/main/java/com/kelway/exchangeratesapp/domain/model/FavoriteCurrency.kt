@@ -1,7 +1,7 @@
 package com.kelway.exchangeratesapp.domain.model
 
 data class FavoriteCurrency(
-    val name_currency: String,
-    val value_currency: Double,
-    val status_favorite: Boolean
+    val nameCurrency: String,
+    val valueCurrency: Double,
+    val statusFavorite: Boolean
 )
