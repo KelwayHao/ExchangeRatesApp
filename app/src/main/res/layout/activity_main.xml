@@ -11,6 +11,8 @@
         android:id="@+id/inputText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"
         app:layout_constraintEnd_toStartOf="@+id/sortImageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
