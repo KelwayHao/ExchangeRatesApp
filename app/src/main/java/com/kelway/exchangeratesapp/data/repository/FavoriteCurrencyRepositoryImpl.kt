@@ -1,6 +1,6 @@
 package com.kelway.exchangeratesapp.data.repository
 
-import com.kelway.exchangeratesapp.data.local.database.FavoriteDao
+import com.kelway.exchangeratesapp.data.local.database.favorite.FavoriteDao
 import com.kelway.exchangeratesapp.data.utils.toFavoriteCurrency
 import com.kelway.exchangeratesapp.data.utils.toFavoriteEntity
 import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency

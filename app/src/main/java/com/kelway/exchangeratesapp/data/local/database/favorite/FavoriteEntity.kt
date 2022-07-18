@@ -1,4 +1,4 @@
-package com.kelway.exchangeratesapp.data.local.database
+package com.kelway.exchangeratesapp.data.local.database.favorite
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
