@@ -7,6 +7,10 @@ import com.kelway.exchangeratesapp.domain.interactor.FavoriteCurrencyInteractor
 import com.kelway.exchangeratesapp.domain.model.Currency
 import com.kelway.exchangeratesapp.domain.model.CurrencyItem
 import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency
+import com.kelway.exchangeratesapp.utils.currencySortedByAlphabet
+import com.kelway.exchangeratesapp.utils.currencySortedByHighestValue
+import com.kelway.exchangeratesapp.utils.currencySortedByLowestValue
+import com.kelway.exchangeratesapp.utils.currencySortedByReverseAlphabet
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,8 +21,13 @@ class PopularViewModel @Inject constructor(
 ) :
     ViewModel() {
 
-    val countState: StateFlow<Currency> = getCurrency()
-        .stateIn(viewModelScope, SharingStarted.Lazily, Currency(null, emptyList()))
+    init {
+        sortAlphabet()
+    }
+
+    private var _countState: MutableStateFlow<Currency> =
+        MutableStateFlow(Currency(null, emptyList()))
+    val countState: StateFlow<Currency> = _countState.asStateFlow()
 
     fun addFavorite(favoriteCurrency: FavoriteCurrency) {
         viewModelScope.launch {
@@ -53,5 +62,30 @@ class PopularViewModel @Inject constructor(
                         }
                     })
             }
+    }
+
+
+    fun sortAlphabet() {
+        getCurrency().map { currency ->
+            _countState.value = currency.currencySortedByAlphabet()
+        }.launchIn(viewModelScope)
+    }
+
+    fun sortReverseAlphabet() {
+        getCurrency().map { currency ->
+            _countState.value = currency.currencySortedByReverseAlphabet()
+        }.launchIn(viewModelScope)
+    }
+
+    fun sortPriceLowest() {
+        getCurrency().map { currency ->
+            _countState.value = currency.currencySortedByLowestValue()
+        }.launchIn(viewModelScope)
+    }
+
+    fun sortPriceHighest() {
+        getCurrency().map { currency ->
+            _countState.value = currency.currencySortedByHighestValue()
+        }.launchIn(viewModelScope)
     }
 }

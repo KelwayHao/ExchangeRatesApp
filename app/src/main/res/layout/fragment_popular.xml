@@ -4,12 +4,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/inputText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"
+        app:layout_constraintEnd_toStartOf="@+id/sortImageButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/sortImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_sort_24"
+        app:layout_constraintBottom_toBottomOf="@+id/inputText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/inputText" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/headerCurrencyColumn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/currency_string"
+        app:layout_constraintEnd_toStartOf="@+id/headerValueColumn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputText" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/headerValueColumn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="@string/value_string"
+        app:layout_constraintEnd_toStartOf="@id/headerImageFavorite"
+        app:layout_constraintStart_toEndOf="@+id/headerCurrencyColumn"
+        app:layout_constraintTop_toBottomOf="@+id/inputText" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/headerImageFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_baseline_star_border_24"
+        app:layout_constraintBottom_toBottomOf="@id/headerValueColumn"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintTop_toTopOf="@id/headerValueColumn" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerPopular"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/headerCurrencyColumn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
