@@ -25,7 +25,6 @@ abstract class Spinner {
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                     TODO("Not yet implemented")
                 }
-
             }
         }
     }

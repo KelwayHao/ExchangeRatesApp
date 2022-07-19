@@ -43,8 +43,8 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     }
 
     private val spinnerListener = object : SpinnerListener {
-        override fun clickAction(q: String) {
-            favoriteViewModel.setSearchValue(q)
+        override fun clickAction(query: String) {
+            favoriteViewModel.setSearchValue(query)
         }
     }
 
@@ -73,8 +73,8 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         binding.recyclerFavorites.adapter = adapter
 
         favoriteViewModel.favoriteState
-            .onEach {
-                adapter.submitItem(it.rates)
+            .onEach { currency ->
+                adapter.submitItem(currency.rates)
             }
             .launchIn(lifecycleScope)
     }

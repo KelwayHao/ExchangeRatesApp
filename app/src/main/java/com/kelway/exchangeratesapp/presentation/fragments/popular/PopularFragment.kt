@@ -52,8 +52,8 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
     }
 
     private val spinnerListener = object : SpinnerListener {
-        override fun clickAction(q: String) {
-            popularViewModel.setSearchValue(q)
+        override fun clickAction(query: String) {
+            popularViewModel.setSearchValue(query)
         }
     }
 
@@ -82,8 +82,8 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
         binding.recyclerPopular.adapter = adapter
 
         popularViewModel.countState
-            .onEach {
-                adapter.submitItem(it.rates)
+            .onEach { currency ->
+                adapter.submitItem(currency.rates)
             }
             .launchIn(lifecycleScope)
     }

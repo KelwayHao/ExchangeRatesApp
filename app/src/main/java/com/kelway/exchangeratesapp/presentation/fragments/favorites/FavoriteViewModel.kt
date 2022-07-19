@@ -46,8 +46,8 @@ class FavoriteViewModel @Inject constructor(
 
     fun setSearchValue(string: String) {
         searchCurrency = string
-        getCurrency(string).map {
-            _favoriteState.value = it
+        getCurrency(string).map { currency ->
+            _favoriteState.value = currency
         }.launchIn(viewModelScope)
     }
 
@@ -55,17 +55,17 @@ class FavoriteViewModel @Inject constructor(
         return favoriteInteractor.getAllData()
             .combine(popularInteractor.getDataCurrency(q)) { favorite, popular ->
                 val listFavorite: MutableList<String> = mutableListOf()
-                favorite.map {
-                    listFavorite.add(it.nameCurrency)
+                favorite.map { favoriteCurrency ->
+                    listFavorite.add(favoriteCurrency.nameCurrency)
                 }
 
                 val listSortFavorite: MutableList<CurrencyItem> = mutableListOf()
-                popular.rates.map {
-                    if (listFavorite.contains(it.nameCurrency)) {
+                popular.rates.map { currencyItem ->
+                    if (listFavorite.contains(currencyItem.nameCurrency)) {
                         listSortFavorite.add(
                             CurrencyItem(
-                                it.nameCurrency,
-                                it.valueCurrency,
+                                currencyItem.nameCurrency,
+                                currencyItem.valueCurrency,
                                 true
                             )
                         )
