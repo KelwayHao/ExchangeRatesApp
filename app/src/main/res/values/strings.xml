@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ExchangeRatesApp</string>
+    <string name="currency_string">Currency</string>
+    <string name="popular_string">Popular</string>
+    <string name="favorites_string">Favorites</string>
+    <string name="value_string">Value</string>
+    <string name="alphabet_order_string">Alphabet</string>
+    <string name="reverse_alphabetical_order_string">Alphabet reverse</string>
+    <string name="price_lowest_string">Price lowest</string>
+    <string name="price_highest_string">Price highest</string>
 </resources>
