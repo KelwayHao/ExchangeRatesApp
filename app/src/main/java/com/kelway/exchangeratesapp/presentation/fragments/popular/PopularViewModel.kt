@@ -1,6 +1,5 @@
 package com.kelway.exchangeratesapp.presentation.fragments.popular
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kelway.exchangeratesapp.domain.interactor.CurrencyInteractor
@@ -8,6 +7,7 @@ import com.kelway.exchangeratesapp.domain.interactor.FavoriteCurrencyInteractor
 import com.kelway.exchangeratesapp.domain.model.Currency
 import com.kelway.exchangeratesapp.domain.model.CurrencyItem
 import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency
+import com.kelway.exchangeratesapp.presentation.sort.SortType
 import com.kelway.exchangeratesapp.utils.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 
 class PopularViewModel @Inject constructor(
-    private val interactor: CurrencyInteractor,
-    private val favoriteCurrencyInteractor: FavoriteCurrencyInteractor
+    private val popularInteractor: CurrencyInteractor,
+    private val favoriteInteractor: FavoriteCurrencyInteractor
 ) :
     ViewModel() {
 
@@ -30,29 +30,37 @@ class PopularViewModel @Inject constructor(
         MutableStateFlow(Currency(null, emptyList()))
     val countState: StateFlow<Currency> = _countState.asStateFlow()
 
+    fun sortCurrency(sortType: SortType) {
+        when (sortType) {
+            SortType.NAME_UP -> sortAlphabet()
+            SortType.NAME_DOWN -> sortReverseAlphabet()
+            SortType.VALUE_UP -> sortPriceLowest()
+            SortType.VALUE_DOWN -> sortPriceHighest()
+        }
+    }
+
     fun addFavorite(favoriteCurrency: FavoriteCurrency) {
         viewModelScope.launch {
-            favoriteCurrencyInteractor.saveData(favoriteCurrency)
+            favoriteInteractor.saveData(favoriteCurrency)
         }
     }
 
     fun deleteFavorite(favoriteCurrency: FavoriteCurrency) {
         viewModelScope.launch {
-            favoriteCurrencyInteractor.deleteData(favoriteCurrency)
+            favoriteInteractor.deleteData(favoriteCurrency)
         }
     }
 
-    fun setSearchValue(string: String){
+    fun setSearchValue(string: String) {
         searchCurrency = string
         getCurrency(string).map {
             _countState.value = it
         }.launchIn(viewModelScope)
-        Log.e("test", string)
     }
 
     private fun getCurrency(q: String): Flow<Currency> {
-        return favoriteCurrencyInteractor.getAllData()
-            .combine(interactor.getDataCurrency(q)) { favorite, popular ->
+        return favoriteInteractor.getAllData()
+            .combine(popularInteractor.getDataCurrency(q)) { favorite, popular ->
                 val listFavorite: MutableList<String> = mutableListOf()
                 favorite.map {
                     listFavorite.add(it.nameCurrency)
@@ -74,25 +82,25 @@ class PopularViewModel @Inject constructor(
     }
 
 
-    fun sortAlphabet(q: String = searchCurrency) {
+    private fun sortAlphabet(q: String = searchCurrency) {
         getCurrency(q).map { currency ->
             _countState.value = currency.currencySortedByAlphabet()
         }.launchIn(viewModelScope)
     }
 
-    fun sortReverseAlphabet(q: String = searchCurrency) {
+    private fun sortReverseAlphabet(q: String = searchCurrency) {
         getCurrency(q).map { currency ->
             _countState.value = currency.currencySortedByReverseAlphabet()
         }.launchIn(viewModelScope)
     }
 
-    fun sortPriceLowest(q: String = searchCurrency) {
+    private fun sortPriceLowest(q: String = searchCurrency) {
         getCurrency(q).map { currency ->
             _countState.value = currency.currencySortedByLowestValue()
         }.launchIn(viewModelScope)
     }
 
-    fun sortPriceHighest(q: String = searchCurrency) {
+    private fun sortPriceHighest(q: String = searchCurrency) {
         getCurrency(q).map { currency ->
             _countState.value = currency.currencySortedByHighestValue()
         }.launchIn(viewModelScope)

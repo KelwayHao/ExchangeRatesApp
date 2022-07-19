@@ -11,6 +11,12 @@ import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency
 import com.kelway.exchangeratesapp.presentation.ExchangeRatesApplication
 import com.kelway.exchangeratesapp.presentation.fragments.favorites.recycler.FavoriteAdapter
 import com.kelway.exchangeratesapp.presentation.listener.DeleteFavoriteClickListener
+import com.kelway.exchangeratesapp.presentation.listener.SortListener
+import com.kelway.exchangeratesapp.presentation.listener.SpinnerListener
+import com.kelway.exchangeratesapp.presentation.sort.SortMenu
+import com.kelway.exchangeratesapp.presentation.sort.SortType
+import com.kelway.exchangeratesapp.presentation.spinner.Spinner
+import com.kelway.exchangeratesapp.utils.Constants
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
@@ -26,7 +32,19 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     private val deleteFavoriteCurrency = object : DeleteFavoriteClickListener {
         override fun clickAction(favoriteCurrency: FavoriteCurrency) {
-            favoriteViewModel.deleteCurrency(favoriteCurrency)
+            favoriteViewModel.deleteFavorite(favoriteCurrency)
+        }
+    }
+
+    private val sortListener = object : SortListener {
+        override fun clickAction(sortType: SortType) {
+            favoriteViewModel.sortCurrency(sortType)
+        }
+    }
+
+    private val spinnerListener = object : SpinnerListener {
+        override fun clickAction(q: String) {
+            favoriteViewModel.setSearchValue(q)
         }
     }
 
@@ -41,10 +59,23 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     }
 
     private fun initView() {
-        binding.recyclerFavorites.adapter = adapter
-        favoriteViewModel.favoriteState.onEach {
-            adapter.submitItem(it)
+        binding.sortImageButton.setOnClickListener { view: View ->
+            SortMenu.showSortMenu(view, R.menu.sort_menu, sortListener, requireContext())
         }
+
+        Spinner.createSpinner(
+            binding.spinnerCurrency,
+            requireContext(),
+            Constants.BASE_QUERY_CURRENCY_LIST,
+            spinnerListener
+        )
+
+        binding.recyclerFavorites.adapter = adapter
+
+        favoriteViewModel.favoriteState
+            .onEach {
+                adapter.submitItem(it.rates)
+            }
             .launchIn(lifecycleScope)
     }
 }

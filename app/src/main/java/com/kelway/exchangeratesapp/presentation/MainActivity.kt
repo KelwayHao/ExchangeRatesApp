@@ -1,9 +1,6 @@
 package com.kelway.exchangeratesapp.presentation
 
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
-import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kelway.exchangeratesapp.R

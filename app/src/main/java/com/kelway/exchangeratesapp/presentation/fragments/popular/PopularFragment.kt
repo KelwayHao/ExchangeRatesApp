@@ -47,12 +47,7 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
 
     private val sortListener = object : SortListener {
         override fun clickAction(sortType: SortType) {
-            when (sortType) {
-                SortType.NAME_UP -> popularViewModel.sortAlphabet()
-                SortType.NAME_DOWN -> popularViewModel.sortReverseAlphabet()
-                SortType.VALUE_UP -> popularViewModel.sortPriceLowest()
-                SortType.VALUE_DOWN -> popularViewModel.sortPriceHighest()
-            }
+            popularViewModel.sortCurrency(sortType)
         }
     }
 
@@ -77,13 +72,15 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
             SortMenu.showSortMenu(view, R.menu.sort_menu, sortListener, requireContext())
         }
 
-        Spinner.createSpinner(binding.spinnerCurrency, requireContext(), Constants.BASE_QUERY_CURRENCY_LIST, spinnerListener)
+        Spinner.createSpinner(
+            binding.spinnerCurrency,
+            requireContext(),
+            Constants.BASE_QUERY_CURRENCY_LIST,
+            spinnerListener
+        )
 
         binding.recyclerPopular.adapter = adapter
 
-        binding.headerCurrencyColumn.setOnClickListener {
-            popularViewModel.sortPriceHighest()
-        }
         popularViewModel.countState
             .onEach {
                 adapter.submitItem(it.rates)

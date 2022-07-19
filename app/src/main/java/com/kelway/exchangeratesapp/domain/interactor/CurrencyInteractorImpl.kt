@@ -10,8 +10,8 @@ import javax.inject.Inject
 class CurrencyInteractorImpl @Inject constructor(private val repository: CurrencyRepository) :
     CurrencyInteractor {
     override fun getDataCurrency(baseCurrency: String): Flow<Currency> {
-        return repository.getRepository(baseCurrency).map {
-            it.currencyResponseToCurrency()
+        return repository.getRepository(baseCurrency).map { currencyResponse ->
+            currencyResponse.currencyResponseToCurrency()
         }
     }
 }

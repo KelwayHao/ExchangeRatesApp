@@ -6,7 +6,7 @@ import com.kelway.exchangeratesapp.data.local.database.favorite.FavoriteDao
 import com.kelway.exchangeratesapp.data.local.database.favorite.FavoriteEntity
 
 @Database(entities = [FavoriteEntity::class], version = AppDatabase.VERSION_DB)
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     companion object {
         const val VERSION_DB = 1
     }

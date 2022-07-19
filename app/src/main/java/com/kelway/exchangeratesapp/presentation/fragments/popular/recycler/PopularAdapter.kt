@@ -3,7 +3,6 @@ package com.kelway.exchangeratesapp.presentation.fragments.popular.recycler
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kelway.exchangeratesapp.domain.model.CurrencyItem
-import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency
 import com.kelway.exchangeratesapp.presentation.listener.AddFavoriteClickListener
 import com.kelway.exchangeratesapp.presentation.listener.DeleteFavoriteClickListener
 
