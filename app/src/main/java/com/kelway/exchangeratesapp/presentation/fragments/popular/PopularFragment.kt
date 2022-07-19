@@ -14,8 +14,11 @@ import com.kelway.exchangeratesapp.presentation.fragments.popular.recycler.Popul
 import com.kelway.exchangeratesapp.presentation.listener.AddFavoriteClickListener
 import com.kelway.exchangeratesapp.presentation.listener.DeleteFavoriteClickListener
 import com.kelway.exchangeratesapp.presentation.listener.SortListener
+import com.kelway.exchangeratesapp.presentation.listener.SpinnerListener
 import com.kelway.exchangeratesapp.presentation.sort.SortMenu
 import com.kelway.exchangeratesapp.presentation.sort.SortType
+import com.kelway.exchangeratesapp.presentation.spinner.Spinner
+import com.kelway.exchangeratesapp.utils.Constants
 import com.kelway.exchangeratesapp.utils.toFavoriteCurrency
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -53,6 +56,12 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
         }
     }
 
+    private val spinnerListener = object : SpinnerListener {
+        override fun clickAction(q: String) {
+            popularViewModel.setSearchValue(q)
+        }
+    }
+
     @Inject
     lateinit var popularViewModel: PopularViewModel
     private val adapter by lazy { PopularAdapter(addFavoriteCurrency, deleteFavoriteCurrency) }
@@ -68,6 +77,8 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
             SortMenu.showSortMenu(view, R.menu.sort_menu, sortListener, requireContext())
         }
 
+        Spinner.createSpinner(binding.spinnerCurrency, requireContext(), Constants.BASE_QUERY_CURRENCY_LIST, spinnerListener)
+
         binding.recyclerPopular.adapter = adapter
 
         binding.headerCurrencyColumn.setOnClickListener {
@@ -76,7 +87,6 @@ class PopularFragment : Fragment(R.layout.fragment_popular) {
         popularViewModel.countState
             .onEach {
                 adapter.submitItem(it.rates)
-                binding.inputText.setText(it.base)
             }
             .launchIn(lifecycleScope)
     }

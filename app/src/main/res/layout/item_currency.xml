@@ -4,17 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextView
         android:id="@+id/nameCurrency"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
         android:paddingVertical="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/valueCurrency"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/valueCurrency"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextView
         android:id="@+id/valueCurrency"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -24,13 +24,13 @@
         app:layout_constraintStart_toEndOf="@+id/nameCurrency"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <ImageView
         android:id="@+id/imageFavorite"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:paddingHorizontal="8dp"
         app:layout_constraintBottom_toBottomOf="@id/valueCurrency"
         app:layout_constraintEnd_toEndOf="parent"
-        android:paddingHorizontal="8dp"
         app:layout_constraintTop_toTopOf="@id/valueCurrency" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

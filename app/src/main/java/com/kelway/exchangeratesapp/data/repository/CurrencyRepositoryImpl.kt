@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class CurrencyRepositoryImpl @Inject constructor(private val exchangeApiService: ExchangeApiService) :
     CurrencyRepository {
-    override fun getRepository(): Flow<CurrencyResponse> {
-        return exchangeApiService.getExchangeApi(base = "EUR")
+    override fun getRepository(baseCurrency: String): Flow<CurrencyResponse> {
+        return exchangeApiService.getExchangeApi(base = baseCurrency)
     }
 }

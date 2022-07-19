@@ -4,5 +4,5 @@ import com.kelway.exchangeratesapp.data.model.CurrencyResponse
 import kotlinx.coroutines.flow.Flow
 
 interface CurrencyRepository {
-    fun getRepository(): Flow<CurrencyResponse>
+    fun getRepository(baseCurrency: String): Flow<CurrencyResponse>
 }

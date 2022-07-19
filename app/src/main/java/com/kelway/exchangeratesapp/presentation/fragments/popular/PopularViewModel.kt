@@ -1,5 +1,6 @@
 package com.kelway.exchangeratesapp.presentation.fragments.popular
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kelway.exchangeratesapp.domain.interactor.CurrencyInteractor
@@ -7,19 +8,19 @@ import com.kelway.exchangeratesapp.domain.interactor.FavoriteCurrencyInteractor
 import com.kelway.exchangeratesapp.domain.model.Currency
 import com.kelway.exchangeratesapp.domain.model.CurrencyItem
 import com.kelway.exchangeratesapp.domain.model.FavoriteCurrency
-import com.kelway.exchangeratesapp.utils.currencySortedByAlphabet
-import com.kelway.exchangeratesapp.utils.currencySortedByHighestValue
-import com.kelway.exchangeratesapp.utils.currencySortedByLowestValue
-import com.kelway.exchangeratesapp.utils.currencySortedByReverseAlphabet
+import com.kelway.exchangeratesapp.utils.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 class PopularViewModel @Inject constructor(
     private val interactor: CurrencyInteractor,
     private val favoriteCurrencyInteractor: FavoriteCurrencyInteractor
 ) :
     ViewModel() {
+
+    private var searchCurrency: String = Constants.BASE_CURRENCY
 
     init {
         sortAlphabet()
@@ -41,9 +42,17 @@ class PopularViewModel @Inject constructor(
         }
     }
 
-    private fun getCurrency(): Flow<Currency> {
+    fun setSearchValue(string: String){
+        searchCurrency = string
+        getCurrency(string).map {
+            _countState.value = it
+        }.launchIn(viewModelScope)
+        Log.e("test", string)
+    }
+
+    private fun getCurrency(q: String): Flow<Currency> {
         return favoriteCurrencyInteractor.getAllData()
-            .combine(interactor.getDataCurrency()) { favorite, popular ->
+            .combine(interactor.getDataCurrency(q)) { favorite, popular ->
                 val listFavorite: MutableList<String> = mutableListOf()
                 favorite.map {
                     listFavorite.add(it.nameCurrency)
@@ -65,26 +74,26 @@ class PopularViewModel @Inject constructor(
     }
 
 
-    fun sortAlphabet() {
-        getCurrency().map { currency ->
+    fun sortAlphabet(q: String = searchCurrency) {
+        getCurrency(q).map { currency ->
             _countState.value = currency.currencySortedByAlphabet()
         }.launchIn(viewModelScope)
     }
 
-    fun sortReverseAlphabet() {
-        getCurrency().map { currency ->
+    fun sortReverseAlphabet(q: String = searchCurrency) {
+        getCurrency(q).map { currency ->
             _countState.value = currency.currencySortedByReverseAlphabet()
         }.launchIn(viewModelScope)
     }
 
-    fun sortPriceLowest() {
-        getCurrency().map { currency ->
+    fun sortPriceLowest(q: String = searchCurrency) {
+        getCurrency(q).map { currency ->
             _countState.value = currency.currencySortedByLowestValue()
         }.launchIn(viewModelScope)
     }
 
-    fun sortPriceHighest() {
-        getCurrency().map { currency ->
+    fun sortPriceHighest(q: String = searchCurrency) {
+        getCurrency(q).map { currency ->
             _countState.value = currency.currencySortedByHighestValue()
         }.launchIn(viewModelScope)
     }
